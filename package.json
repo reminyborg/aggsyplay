@@ -1,0 +1,31 @@
+{
+  "name": "aggsyplay",
+  "version": "0.0.0",
+  "private": true,
+  "description": "aggsyplay website",
+  "scripts": {
+    "test": "node test.js",
+    "build": "browserify index.js | uglifyjs -c -m > tmp.js && mv tmp.js public/index.js",
+    "dev": "budo index.js --live --dir public/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reminyborg/aggsyplay.git"
+  },
+  "keywords": [
+    "aggsy",
+    "playground"
+  ],
+  "author": "Remi Nyborg",
+  "license": "MIT",
+  "dependencies": {
+    "aggsy": "^1.1.0",
+    "brace": "^0.7.0",
+    "debounce": "^1.0.0",
+    "domready": "^1.0.8",
+    "mithril": "^0.2.0"
+  },
+  "devDependencies": {
+    "standard": "^6.0.7"
+  }
+}
