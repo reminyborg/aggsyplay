@@ -1,5 +1,6 @@
 var m = require('mithril')
 var ace = require('brace')
+require('brace/theme/clouds')
 require('brace/mode/json')
 
 var Text = {
@@ -11,6 +12,7 @@ var Text = {
         session.setMode('ace/mode/json')
         session.setTabSize(2)
         session.setUseSoftTabs(true)
+        editor.setTheme('ace/theme/clouds')
         editor.setShowPrintMargin(false)
         editor.$blockScrolling = Infinity
 
@@ -21,6 +23,7 @@ var Text = {
         if (options.update) {
           editor.on('change', function () {
             options.update(editor.getValue())
+            m.redraw()
           })
         }
       }

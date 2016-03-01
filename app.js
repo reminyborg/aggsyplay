@@ -16,7 +16,7 @@ var App = {
     var query = m.prop(testQuery)
     var data = m.prop(testData)
     var result = m.prop('')
-    var error = m.prop('')
+    var error = m.prop(false)
 
     return {
       query: query,
@@ -38,21 +38,24 @@ var App = {
     }
 
     function update () {
-      error('')
+      error(false)
       try {
         var res = aggsy(query().trim(), JSON.parse(data()))
         result(JSON.stringify(res, null, '\t'))
       } catch (e) {
-        error(' faulty query')
+        error(true)
       }
     }
   },
   view: function (ctrl) {
     return [
-      m('input[type=text][style=width:300px]', { value: ctrl.query(), onkeyup: m.withAttr('value', ctrl.updateQuery), placeholder: 'query' }),
-      m('span[style=color:red]', ctrl.error()),
-      m('div[style=position:absolute;top:10%;bottom:45%;right:0;left:0]', m.component(text, { update: ctrl.updateData, value: ctrl.data })),
-      m('div[style=position:absolute;top:55%;bottom:0;right:0;left:0]', m.component(text, { value: ctrl.result, readOnly: true }))
+      m('div#header', [m('span[style=color: #5D90CD]', 'Aggsy'), m('span[style=color: grey]', 'Play')]),
+      m('div#querycontainer', [
+        m('input#query[type=text]', { value: ctrl.query(), onkeyup: m.withAttr('value', ctrl.updateQuery), placeholder: 'query', class: ctrl.error() ? 'invalid' : '' }),
+        m('label#querylabel[for=query]', 'query')
+      ]),
+      m('div#data', m.component(text, { update: ctrl.updateData, value: ctrl.data })),
+      m('div#result', m.component(text, { value: ctrl.result, readOnly: true }))
     ]
   }
 }
