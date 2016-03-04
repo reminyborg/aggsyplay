@@ -28,10 +28,12 @@ div {
   border-bottom: solid grey 1px;
 }
 
-#functions {
+#reducer {
   display: inline-block;
   background: #f0f0f0;
-  height: 23px;
+  padding: 5px 10px 5px 10px;
+  border-bottom: solid lightgrey 1px;
+  border-right: solid lightgrey 1px;
 }
 
 #content {
