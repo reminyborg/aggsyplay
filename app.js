@@ -12,6 +12,18 @@ var testData = `[
   { "model": "tesla", "make": "x", "km": 10 }
 ]`
 
+var reducers = [
+  { name: '_sum' },
+  { name: '_count' },
+  { name: '_min' },
+  { name: '_max' },
+  { name: '_first' },
+  { name: '_last' },
+  { name: '_has' },
+  { name: '_avg' },
+  { name: '_stdev' }
+]
+
 var App = {
   controller: function () {
     var query = m.prop(testQuery)
@@ -55,22 +67,23 @@ var App = {
         m('span[style=color:grey;font-size:23px]', 'Play'),
         m('a[href=https://github.com/reminyborg/aggsy][style=float:right;margin-right: 12px;color:grey]', 'github'),
         m('span.version', 'aggsy v' + version)
-      ]),
-      m('#content', [
-        m('#query-container', [
-          m('input#query[type=text]', { value: ctrl.query(), onkeyup: m.withAttr('value', ctrl.updateQuery), placeholder: 'query', class: ctrl.error() ? 'invalid' : '' }),
-          m('label#querylabel[for=query]', 'query')
-        ]),
-        m('.container#data', [
-          m('.label', 'data'),
-          m('.text', m.component(text, { update: ctrl.updateData, value: ctrl.data }))
-        ]),
-        m('.container#result', [
-          m('.label', 'result'),
-          m('.text', m.component(text, { value: ctrl.result, readOnly: true }))
-        ])
       ])
-    ]
+    ].concat(reducers.map(function (reducer) {
+      return m('#reducer', [reducer.name + ' ', reducer.description ? m('img[src=info.svg][style=width:14px;vertical-align:middle]', { title: reducer.description }) : ''])
+    }), m('#content', [
+      m('#query-container', [
+        m('input#query[type=text]', { value: ctrl.query(), onkeyup: m.withAttr('value', ctrl.updateQuery), placeholder: 'query', class: ctrl.error() ? 'invalid' : '' }),
+        m('label#querylabel[for=query]', 'query')
+      ]),
+      m('.container#data', [
+        m('.label', 'data'),
+        m('.text', m.component(text, { update: ctrl.updateData, value: ctrl.data }))
+      ]),
+      m('.container#result', [
+        m('.label', 'result'),
+        m('.text', m.component(text, { value: ctrl.result, readOnly: true }))
+      ])
+    ]))
   }
 }
 
