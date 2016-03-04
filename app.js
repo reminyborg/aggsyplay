@@ -1,6 +1,7 @@
 var m = require('mithril')
 var text = require('./text')
 var aggsy = require('aggsy')
+var version = require('aggsy/package.json').version
 
 var testQuery = 'model(distance: _sum(km), reports: _count())'
 
@@ -49,13 +50,26 @@ var App = {
   },
   view: function (ctrl) {
     return [
-      m('div#header', [m('span[style=color: #5D90CD]', 'Aggsy'), m('span[style=color: grey]', 'Play')]),
-      m('div#querycontainer', [
-        m('input#query[type=text]', { value: ctrl.query(), onkeyup: m.withAttr('value', ctrl.updateQuery), placeholder: 'query', class: ctrl.error() ? 'invalid' : '' }),
-        m('label#querylabel[for=query]', 'query')
+      m('#header', [
+        m('span[style=color:#5D90CD;font-size:23px]', 'Aggsy'),
+        m('span[style=color:grey;font-size:23px]', 'Play'),
+        m('a[href=https://github.com/reminyborg/aggsy][style=float:right;margin-right: 12px;color:grey]', 'github'),
+        m('span.version', 'aggsy v' + version)
       ]),
-      m('div#data', m.component(text, { update: ctrl.updateData, value: ctrl.data })),
-      m('div#result', m.component(text, { value: ctrl.result, readOnly: true }))
+      m('#content', [
+        m('#query-container', [
+          m('input#query[type=text]', { value: ctrl.query(), onkeyup: m.withAttr('value', ctrl.updateQuery), placeholder: 'query', class: ctrl.error() ? 'invalid' : '' }),
+          m('label#querylabel[for=query]', 'query')
+        ]),
+        m('.container#data', [
+          m('.label', 'data'),
+          m('.text', m.component(text, { update: ctrl.updateData, value: ctrl.data }))
+        ]),
+        m('.container#result', [
+          m('.label', 'result'),
+          m('.text', m.component(text, { value: ctrl.result, readOnly: true }))
+        ])
+      ])
     ]
   }
 }

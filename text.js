@@ -14,7 +14,15 @@ var Text = {
         session.setUseSoftTabs(true)
         editor.setTheme('ace/theme/clouds')
         editor.setShowPrintMargin(false)
+        editor.renderer.setShowGutter(false)
         editor.$blockScrolling = Infinity
+
+        editor.on('focus', function () {
+          context.editor.container.parentElement.parentElement.firstChild.classList.add('active')
+        })
+        editor.on('blur', function () {
+          context.editor.container.parentElement.parentElement.firstChild.classList.remove('active')
+        })
 
         if (options.readOnly) {
           editor.setReadOnly(true)
