@@ -5,7 +5,7 @@
   "description": "aggsyplay website",
   "scripts": {
     "test": "node test.js",
-    "build": "browserify index.js | uglifyjs -c -m > tmp.js && mv tmp.js public/index.js",
+    "build": "browserify index.js > public/index.js",
     "dev": "budo index.js --live --dir public/"
   },
   "repository": {
@@ -21,6 +21,7 @@
   "dependencies": {
     "aggsy": "^1.2.0",
     "brace": "^0.7.0",
+    "browserify": "^17.0.0",
     "debounce": "^1.0.0",
     "domready": "^1.0.8",
     "mithril": "^0.2.0"
